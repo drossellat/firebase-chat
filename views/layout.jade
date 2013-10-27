@@ -1,0 +1,33 @@
+doctype 5
+html
+  head
+    title #{title} - Firebase chat demo
+    link(rel='stylesheet', href='/stylesheets/firechat-default.css')
+    script(type='text/javascript', src= 'https://cdn.firebase.com/v0/firebase.js')
+    script(type='text/javascript', src= '//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js')
+    script(type='text/javascript', src= '/javascripts/firechat-default.js')
+    script(type='text/javascript', src= 'https://cdn.firebase.com/v0/firebase-simple-login.js')
+  body
+
+    header
+        h1 Firebase chat demo
+    #firechat-wrapper
+    script.
+        var chatRef = new Firebase('https://mysquar.firebaseio.com/chat');
+        var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+        var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+            if (error) {
+                // an error occurred while attempting login
+                console.log(error);
+            } else if (user) {
+                // user authenticated with Firebase
+                console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+            } else {
+                this.login('anonymous');
+                //console.log('user login');
+            }
+            chat.setUser(user.id,'anonymous');
+        });
+    footer
+        p Running on node with Express, Jade and Stylus
+
