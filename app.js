@@ -6,6 +6,8 @@ var express = require('express')
     , nib = require('nib')
 
 
+var JWToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6dHJ1ZSwidiI6MCwiaWF0IjoxMzgzMjUzODE1LCJkIjp7ImZpcnN0X25hbWUiOiJkYXZpZCIsInVzZXJuYW1lIjoiZHJvc3NlbGxhdCJ9fQ.U_sKdKXLVCo5fioYvUyEB2XnJUbyzz9yGyYXcY-Udh8"
+var test ="test"
 var app = express()
 
 function compile(str, path) {
@@ -26,7 +28,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/', function (req, res) {
     res.render('index',
-        { title : 'Home' }
+        { title : 'Home', token : JWToken }
     )
 })
 

@@ -1,12 +1,11 @@
 doctype 5
 html
   head
-    title #{title} - Firebase chat demo
+    title #{token} - Firebase chat demo
     link(rel='stylesheet', href='/stylesheets/firechat-default.css')
     script(type='text/javascript', src= 'https://cdn.firebase.com/v0/firebase.js')
     script(type='text/javascript', src= '//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js')
     script(type='text/javascript', src= '/javascripts/firechat-default.js')
-    script(type='text/javascript', src= 'https://cdn.firebase.com/v0/firebase-simple-login.js')
   body
 
     header
@@ -15,18 +14,15 @@ html
     script.
         var chatRef = new Firebase('https://mysquar.firebaseio.com/chat');
         var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
-        var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
-            if (error) {
-                // an error occurred while attempting login
-                console.log(error);
-            } else if (user) {
-                // user authenticated with Firebase
-                console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+        // Log me in.
+        AUTH_TOKEN = "#{token}";
+        chatRef.auth(AUTH_TOKEN, function(error) {
+            if(error) {
+                console.log("Login Failed!", error);
             } else {
-                this.login('anonymous');
-                //console.log('user login');
+                console.log("Login Succeeded!");
+                chat.setUser('some id','drossellat');
             }
-            chat.setUser(user.id,'anonymous');
         });
     footer
         p Running on node with Express, Jade and Stylus
