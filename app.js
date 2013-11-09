@@ -4,10 +4,16 @@
 var express = require('express')
     , stylus = require('stylus')
     , nib = require('nib')
+    , FirebaseTokenGenerator = require('firebase-token-generator')
 
 
-var JWToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6dHJ1ZSwidiI6MCwiaWF0IjoxMzgzMjUzODE1LCJkIjp7ImZpcnN0X25hbWUiOiJkYXZpZCIsInVzZXJuYW1lIjoiZHJvc3NlbGxhdCJ9fQ.U_sKdKXLVCo5fioYvUyEB2XnJUbyzz9yGyYXcY-Udh8"
-var test ="test"
+//var JWToken = "XeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6dHJ1ZSwidiI6MCwiaWF0IjoxMzgzNTk2MDI0LCJkIjp7ImF1dGhfZGF0YSI6ImZvbyIsIm90aGVyX2F1dGhfZGF0YSI6ImJhciJ9fQ.2JFKmdLs39wJksFGtKZQw8CgjH8vQttPH8Bddp4Vhss"
+var YOUR_FIREBASE_SECRET ='syVhV30theMQpJ2gKi3coUwfezX0IO4ztfN1OifF';
+var FirebaseTokenGenerator = require("firebase-token-generator");
+var tokenGenerator = new FirebaseTokenGenerator(YOUR_FIREBASE_SECRET);
+var JWToken = tokenGenerator.createToken({firstname: "dave", lastname: "rossellat"});
+
+
 var app = express()
 
 function compile(str, path) {

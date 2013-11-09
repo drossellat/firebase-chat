@@ -1,7 +1,7 @@
 doctype 5
 html
   head
-    title #{token} - Firebase chat demo
+    title Firebase chat demo
     link(rel='stylesheet', href='/stylesheets/firechat-default.css')
     script(type='text/javascript', src= 'https://cdn.firebase.com/v0/firebase.js')
     script(type='text/javascript', src= '//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js')
@@ -14,16 +14,18 @@ html
     script.
         var chatRef = new Firebase('https://mysquar.firebaseio.com/chat');
         var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
-        // Log me in.
         AUTH_TOKEN = "#{token}";
+
         chatRef.auth(AUTH_TOKEN, function(error) {
             if(error) {
-                console.log("Login Failed!", error);
+                console.log("Login Failed! trying new token", error);
             } else {
                 console.log("Login Succeeded!");
                 chat.setUser('some id','drossellat');
             }
         });
+
+
     footer
         p Running on node with Express, Jade and Stylus
 
